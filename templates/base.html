@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/basestyle.css">
+    <title>Kidey *STAFF* - {% block title %}{% endblock title %}</title>
+
+
+
+</head>
+
+<body>
+
+    <div id="main_header">
+        <div class="inner">
+
+            <div class="logo">
+                <div>
+                    <span class="fnt-big">Printtouch</span>
+                    <span class="fnt-med" style="color: grey;">Staff Console</span>
+                </div>
+            </div>
+
+            <div id="logged_in_as">
+                Logout <span style="color: #808080;">({{user.first_name}})</span>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="body-flex-container">
+
+        <div id="hotbar-container">
+            <div id="hotbar">
+
+                <div class="hotbar-slot {% if active_page == 'dashboard' %}alive{% endif %}" onclick="window.location = '/dashboard';">
+                    <img src="https://img.icons8.com/material/96/ffffff/dashboard-layout.png"/>
+                    Dashboard
+                </div>
+
+                <div class="hotbar-slot {% if active_page == 'accounts' %}alive{% endif %}" onclick="window.location = '/accounts';">
+                    <img style="filter: invert(100%);" src="https://www.freeiconspng.com/thumbs/bank-icon/metal-bank-icon-on-white-background-stock-vector-12.png"/>
+                    Accounts
+                </div>
+
+                <div class="hotbar-slot {% if active_page == 'hoardings' %}alive{% endif %}" onclick="window.location = '/hoardings';">
+                    <img src="https://img.icons8.com/material-outlined/96/ffffff/web-analystics.png"/>
+                    Hoardings and Tradeboards
+                </div>
+                
+                <div class="hotbar-slot {% if active_page == 'customers' %}alive{% endif %}" onclick="window.location = '/customers';">
+                    <img style="filter: invert(100%);" src="https://cdn.onlinewebfonts.com/svg/img_347669.png"/>
+                    Customers
+                </div>
+
+                <!-- <div class="hotbar-slot">
+                    <img src="https://img.icons8.com/wired/64/ffffff/deliver-food.png"/>
+                    Orders
+                </div>
+
+                <div class="hotbar-slot">
+                    <img src="https://img.icons8.com/wired/64/ffffff/rupee.png"/>
+                    Money
+                </div> -->
+
+            </div>
+        </div>
+
+        <div id="implanted_body">
+            <!-- IMPLANTED BODY -->
+            {% block body %}
+            {% endblock body %}
+        </div>
+    </div>
+
+    <style>
+        
+    </style>
+
+</body>
+
+{% block postdoc_script %}
+{% endblock postdoc_script %}
+
+</html>

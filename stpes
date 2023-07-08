@@ -1,0 +1,35 @@
+django-admin startproject <project-name>
+
+ALLOWED HOSTS
+
+python manage.py migrate
+
+python manage.py startapp <app-name>
+
+Add app to settings
+
+In urls.py of project root-
+    path('', include('<app-name>.urls')),
+
+    Create urls.py in app
+
+    Create Functions in views.py
+
+Create Folder Static
+
+Settings:
+    TEMPLATES .>. DIRS
+
+
+    '''
+    STATIC_URL = '/static/'
+
+    STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, "static")
+    ]
+
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+    MEDIA_URL = '/media/'
+
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    '''
