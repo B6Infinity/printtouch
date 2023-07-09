@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Document</title>
+
+</head>
+<body style="background-color: rgb(17, 24, 39);">
+
+    <!-- ALERT MESSAGE -->
+
+    <div class="alert-box-container" id="alert-box-container">
+        {% for message in messages %}
+
+        <div class="alert-box {{message.tags}} enterAlert">
+
+            {% if message.tags == 'warning' %}
+            <span class="alert-icon fas fa-exclamation-circle" style="color: rgb(128, 77, 2);"></span>
+            {% elif message.tags == 'info' %}
+            <span class="alert-icon fas fa-info-circle" style="color: rgb(0, 16, 85);"></span>
+            {% elif message.tags == 'success' %}
+            <span class="alert-icon fas fa-check-circle" style="color: rgb(2, 110, 2);"></span>
+            {% elif message.tags == 'error' %}
+            <span class="alert-icon fas fa-times-circle" style="color: rgb(85, 0, 0);"></span>
+            {% endif %}
+
+            <span class="alert-message">{{message|safe}}
+
+            </span>
+            <span class="alert-closebtn fas fa-times" onclick="closeAlertMessage(this)"></span>
+
+
+        </div>
+
+        <script>setTimeout(function () { document.getElementsByClassName('enterAlert')[0].classList.remove('enterAlert'); }, 200);</script>
+
+
+        {% endfor %}
+    </div>
+
+    <!-- ALERTS END -->
+
+    <form action="/handle_login" method="post">
+        {% csrf_token %}
+        <section class="text-gray-400 bg-gray-900 body-font relative">
+            <div class="container px-5 py-24 mx-auto">
+            <div class="flex flex-col text-center w-full mb-12">
+                <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-white">Login</h1>
+                <p class="lg:w-2/3 mx-auto leading-relaxed text-base">Use your 'Staff' credentials to log into Printtouch's staff console</p>
+            </div>
+            <div class="lg:w-1/2 md:w-2/3 mx-auto">
+                <div class="flex flex-wrap -m-2">
+                <div class="p-2 w-1/2">
+                    <div class="relative">
+                    <label for="username" class="leading-7 text-sm text-gray-400">Username</label>
+                    <input type="text" id="username" name="username" class="w-full bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-green-500 focus:bg-gray-900 focus:ring-2 focus:ring-green-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                    </div>
+                </div>
+                <div class="p-2 w-1/2">
+                    <div class="relative">
+                    <label for="password" class="leading-7 text-sm text-gray-400">Password</label>
+                    <input type="password" id="password" name="password" class="w-full bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-green-500 focus:bg-gray-900 focus:ring-2 focus:ring-green-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                    </div>
+                </div>
+                <div class="p-2 w-full">
+                    <br><br>
+                    <button type="submit" class="flex mx-auto text-white bg-green-500 border-0 py-2 px-8 focus:outline-none hover:bg-green-600 rounded text-lg">Login</button>
+                </div>
+                </div>
+            </div>
+            </div>
+        </section>
+    </form>
+</body>
+<style>
+    /* ALERT BOX ------------------------------------------- */
+    .alert-box-container {
+        position: fixed;
+        right: 0;
+        top: 10%;
+        z-index: 5;
+    }
+    
+    .alert-box a {
+        transition: 0.2s;
+        color: rgb(255, 255, 255);
+        text-shadow: 1px 1px 1px black;
+    }
+    
+    .alert-box a:hover {
+        text-shadow: 2px 2px 2px black;
+        transition: 0.2s;
+    }
+    
+    .enterAlert {
+        animation-name: easein_R;
+        animation-duration: 0.2s;
+    }
+    
+    .exitAlert {
+        animation-name: easeout_R;
+        animation-duration: 0.6s;
+    }
+    
+    @keyframes easeout_R {
+        0% {
+            transform: translate(0, 0);
+        }
+        20% {
+            transform: translate(-20%, 0);
+        }
+        30% {
+            transform: translate(-20%, 0);
+        }
+        100% {
+            opacity: 0;
+            transform: translate(140%, 0);
+        }
+    }
+    
+    @keyframes easein_R {
+        0% {
+            transform: translate(140%, 0);
+        }
+        100% {
+            transform: translate(0, 0);
+        }
+    }
+    
+    .alert-box {
+        transition: 0.2s;
+        z-index: 5;
+        position: initial;
+        background: rgb(240, 181, 32);
+        /* background: #D4EDDA; */
+        margin: 10px;
+        box-shadow: 1px 1px 1px black;
+        font-size: 17px;
+    }
+    
+    /* TAGS */
+    
+    .error {
+        background: rgb(255, 88, 88);
+    }
+    
+    .success {
+        background: #4BB543;
+    }
+    
+    .info {
+        background: rgb(98, 191, 245);
+    }
+    
+    .alert-icon {
+        background: rgba(22, 22, 22, 0.075);
+        padding: 10px;
+        /* border-left: 3px solid rgba(255, 145, 0, 0.808); */
+    }
+    
+    .alert-message {
+        padding: 10px;
+        padding-right: 14px;
+        font-size: 16px;
+        margin-right: 25px;
+    }
+    
+    .alert-closebtn {
+        transition: 0.2s;
+        width: 4.5%;
+        right: 0;
+        bottom: inherit;
+        padding: 10px;
+        margin: 0 8px;
+        position: absolute;
+    }
+    
+    .alert-closebtn:hover {
+        transition: 0.2s;
+        background: rgba(0, 0, 0, 0.219);
+    }
+    
+    /* ALERT BOX END */
+</style>
+<script>
+    
+    function closeAlertMessage(alertBoxCLSBTN) {
+
+    alertBoxCLSBTN.parentElement.classList.add("exitAlert");
+        setTimeout(function () { alertBoxCLSBTN.parentElement.remove(); }, 600);
+    }
+
+    function closeAlertMessage_TO(alertBox) {
+
+    alertBox.classList.add("exitAlert");
+    setTimeout(function () { alertBox.remove(); }, 600);
+    }
+
+    function createAlertMessage(tag, message) {
+        let alertBoxContainer = document.getElementById('alert-box-container');
+
+        let symbol = ``;
+        if (tag == 'warning') {
+            symbol = '<span class="alert-icon fas fa-exclamation-circle" style="color: rgb(128, 77, 2);"></span>';
+        } else if (tag == 'info') {
+            symbol = '<span class="alert-icon fas fa-info-circle" style="color: rgb(0, 16, 85);"></span>';
+
+        } else if (tag == 'success') {
+            symbol = '<span class="alert-icon fas fa-check-circle" style="color: rgb(2, 110, 2);"></span>';
+
+        } else if (tag == 'error') {
+            symbol = '<span class="alert-icon fas fa-times-circle" style="color: rgb(85, 0, 0);"></span>';
+
+        }
+
+
+        var current = new Date();
+
+        let alertuid = String(current.getHours()) + String(current.getMinutes()) + String(current.getSeconds()) + String(current.getMilliseconds());
+
+        alertBoxContainer.innerHTML += `
+        <div class="alert-box ${tag} enterAlert" id="${alertuid}">
+
+            ${symbol}
+
+            <span class="alert-message">${message}
+
+            </span>
+            <span class="alert-closebtn fas fa-times" onclick="closeAlertMessage(this)"></span>
+
+
+        </div>
+        `;
+
+        setTimeout(function () { document.getElementsByClassName('enterAlert')[0].classList.remove('enterAlert'); }, 200);
+        setTimeout(function () {
+            closeAlertMessage_TO(document.getElementById(alertuid));
+        }, 6000); // Delete Alert after 6 seconds
+
+    }
+
+    function copyToClipBoard(str) {
+        const el = document.createElement('textarea');
+        el.value = str;
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand('copy');
+        document.body.removeChild(el);
+    }
+
+</script>
+</html>

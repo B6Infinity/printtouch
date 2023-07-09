@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/basestyle.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <title>Kidey *STAFF* - {% block title %}{% endblock title %}</title>
 
 
@@ -13,6 +15,39 @@
 </head>
 
 <body>
+
+    <!-- ALERT MESSAGE -->
+
+    <div class="alert-box-container" id="alert-box-container">
+        {% for message in messages %}
+
+        <div class="alert-box {{message.tags}} enterAlert">
+
+            {% if message.tags == 'warning' %}
+            <span class="alert-icon fas fa-exclamation-circle" style="color: rgb(128, 77, 2);"></span>
+            {% elif message.tags == 'info' %}
+            <span class="alert-icon fas fa-info-circle" style="color: rgb(0, 16, 85);"></span>
+            {% elif message.tags == 'success' %}
+            <span class="alert-icon fas fa-check-circle" style="color: rgb(2, 110, 2);"></span>
+            {% elif message.tags == 'error' %}
+            <span class="alert-icon fas fa-times-circle" style="color: rgb(85, 0, 0);"></span>
+            {% endif %}
+
+            <span class="alert-message">{{message|safe}}
+
+            </span>
+            <span class="alert-closebtn fas fa-times" onclick="closeAlertMessage(this)"></span>
+
+
+        </div>
+
+        <script>setTimeout(function () { document.getElementsByClassName('enterAlert')[0].classList.remove('enterAlert'); }, 200);</script>
+
+
+        {% endfor %}
+    </div>
+
+    <!-- ALERTS END -->
 
     <div id="main_header">
         <div class="inner">
@@ -24,8 +59,8 @@
                 </div>
             </div>
 
-            <div id="logged_in_as">
-                Logout <span style="color: #808080;">({{user.first_name}})</span>
+            <div id="logged_in_as" onclick="window.location = '/logout';">
+                Logout <span style="color: #808080;">({{user}})</span>
             </div>
         </div>
     </div>
@@ -81,8 +116,76 @@
     </style>
 
 </body>
+<script>
+    
+    function closeAlertMessage(alertBoxCLSBTN) {
 
+    alertBoxCLSBTN.parentElement.classList.add("exitAlert");
+        setTimeout(function () { alertBoxCLSBTN.parentElement.remove(); }, 600);
+    }
+
+    function closeAlertMessage_TO(alertBox) {
+
+    alertBox.classList.add("exitAlert");
+    setTimeout(function () { alertBox.remove(); }, 600);
+    }
+
+    function createAlertMessage(tag, message) {
+        let alertBoxContainer = document.getElementById('alert-box-container');
+
+        let symbol = ``;
+        if (tag == 'warning') {
+            symbol = '<span class="alert-icon fas fa-exclamation-circle" style="color: rgb(128, 77, 2);"></span>';
+        } else if (tag == 'info') {
+            symbol = '<span class="alert-icon fas fa-info-circle" style="color: rgb(0, 16, 85);"></span>';
+
+        } else if (tag == 'success') {
+            symbol = '<span class="alert-icon fas fa-check-circle" style="color: rgb(2, 110, 2);"></span>';
+
+        } else if (tag == 'error') {
+            symbol = '<span class="alert-icon fas fa-times-circle" style="color: rgb(85, 0, 0);"></span>';
+
+        }
+
+
+        var current = new Date();
+
+        let alertuid = String(current.getHours()) + String(current.getMinutes()) + String(current.getSeconds()) + String(current.getMilliseconds());
+
+        alertBoxContainer.innerHTML += `
+        <div class="alert-box ${tag} enterAlert" id="${alertuid}">
+
+            ${symbol}
+
+            <span class="alert-message">${message}
+
+            </span>
+            <span class="alert-closebtn fas fa-times" onclick="closeAlertMessage(this)"></span>
+
+
+        </div>
+        `;
+
+        setTimeout(function () { document.getElementsByClassName('enterAlert')[0].classList.remove('enterAlert'); }, 200);
+        setTimeout(function () {
+            closeAlertMessage_TO(document.getElementById(alertuid));
+        }, 6000); // Delete Alert after 6 seconds
+
+    }
+
+    function copyToClipBoard(str) {
+        const el = document.createElement('textarea');
+        el.value = str;
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand('copy');
+        document.body.removeChild(el);
+    }
+
+</script>
+<!-- INJECTED SCRIPT -->
 {% block postdoc_script %}
+
 {% endblock postdoc_script %}
 
 </html>
