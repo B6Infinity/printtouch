@@ -2,8 +2,144 @@
 {% block title %}Accounts{% endblock title %}
 {% block body %}
 
-ACCOUNTS KINTU
+<section id="parentholder">
 
+    <section id="accounts">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab delectus repellendus deleniti officiis distinctio ipsum libero dignissimos neque recusandae vitae, illo, error obcaecati eius nobis atque possimus mollitia minima at id repudiandae dolorum. Blanditiis eveniet aperiam expedita temporibus vero aliquid, similique mollitia, reprehenderit perferendis et eum quo consequuntur modi veritatis.
+    </section>
+    <section id="notifbar">
+
+        <section id="periodic_deposits">
+
+            
+            <h3>Periodic Deposits</h3><hr>
+            
+            <div class="m-4">
+                <div class="mb-1 text-base font-medium dark:text-white">Dark</div>
+                <div class="w-full bg-gray-200 rounded-full dark:bg-gray-700">
+                    <div class="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full" style="width: 45%"> 45%</div>
+                </div>
+            </div>
+            <div class="m-4">
+                <div class="mb-1 text-base font-medium dark:text-white">Dark</div>
+                <div class="w-full bg-gray-200 rounded-full dark:bg-gray-700">
+                    <div class="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full" style="width: 90%"> 90%</div>
+                </div>
+            </div>
+            <div class="m-4">
+                <div class="mb-1 text-base font-medium dark:text-white">Dark</div>
+                <div class="w-full bg-gray-200 rounded-full dark:bg-gray-700">
+                    <div class="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full" style="width: 45%"> 45%</div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <section id="recent_flows">
+
+            
+            <h3>Recent Flows</h3><hr>
+            
+            <div class="flow">
+                <span class="amt">500/-</span>
+                <span class="purpose">Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, quaerat.</span>
+                <span class="date">17.12.2003</span>
+            </div>
+            <div class="flow">
+                <span class="amt">500/-</span>
+                <span class="purpose">Mon</span>
+                <span class="date">17.12.2003</span>
+            </div>
+            <div class="flow">
+                <span class="amt">500/-</span>
+                <span class="purpose">Phuchka.</span>
+                <span class="date">17.12.2003</span>
+            </div>
+        </section>
+
+        
+
+
+    </section>
+    
+</section>
+
+<style>
+    #parentholder{
+        width: 100%;
+        /* background-color: rgba(114, 253, 79, 0.425); */
+        height: 100%;
+        position: relative;
+        display: flex;
+        flex-direction: row;
+    }
+
+    #parentholder #accounts{
+        background-color: rgba(255, 81, 0, 0.349);
+        flex-grow: 1;
+    }
+    #parentholder #notifbar{
+        /* background-color: rgba(0, 255, 255, 0.349); */
+        height: 100%;
+        width: 300px;
+    }
+
+    /* NOTIFBAR */
+    #notifbar{
+        display: flex;
+        flex-direction: column;
+        /* justify-content: space-evenly; */
+    }
+
+
+    #notifbar h3{
+        margin: 10px;
+        /* color: yellowgreen; */
+        font-size: 1.5rem;
+        font-weight: 500;
+        
+    }
+
+    #notifbar hr{
+        margin: 10px 15px;
+        opacity: 50%;
+    }
+
+    #notifbar .flow{
+        background-color: rgba(34, 163, 223, 0.541);
+        margin: 10px;
+        padding: 10px;
+        position: relative;
+        height: 55px;
+
+        overflow: hidden; text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .flow .amt{
+        color: lime;
+        font-weight: bold;
+        text-align: left;
+    }
+    .flow .purpose{
+        font-weight: bolder;
+        text-align: right;
+        
+    }
+    .flow .date:hover{font-size: medium; background-color: black; font-weight: 500;}
+    .flow .date{
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        padding: 2px 5px;
+        color: rgb(221, 221, 221);
+        font-size: small;
+    }
+
+    
+
+</style>
 
 
 {% endblock body %}
