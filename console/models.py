@@ -1,3 +1,51 @@
 from django.db import models
+from datetime import datetime
+from django.db import models
+from django.contrib.auth.models import User
+from django.db.models.base import Model
+from django.db.models.fields import CharField, TextField
 
-# Create your models here.
+
+class Account(models.Model):
+    name = models.CharField(max_length=50)
+    location = models.CharField(max_length=20)
+    amt_present = models.PositiveBigIntegerField(default=0)
+
+    category_choices = (
+        ('cc', 'cc'),
+        ('hbl', 'hbl'),
+        ('savings', 'savings'),
+        ('joint', 'joint'),
+    )
+
+    category = models.CharField(max_length=25, choices=category_choices, default='cc')
+
+    def __str__(self) -> str:
+        return f"{self.name} - {self.category}"
+
+
+class Flow(models.Model):
+    depwith_choices = (
+        ('add', 'deposit'),
+        ('substract', 'withdraw'),
+    )
+
+    flow = models.CharField(max_length=25, choices=depwith_choices, default='add')
+
+    is_cheque = models.BooleanField(default=False)
+    catalyst = models.CharField(max_length=50)
+    purpose = models.CharField(max_length=100)
+    
+    amount = models.PositiveBigIntegerField(default=0)
+    account = models.ForeignKey(Account, on_delete=models.CASCADE)
+
+
+
+# class Customer(models.Model):
+#     name = models.CharField(max_length=120)
+#     phone_no =  models.IntegerField()
+
+#     address = models.TextField(default="")
+
+#     def __str__(self) -> str:
+#         return f"{self.name}({self.phone_no})"

@@ -34,7 +34,9 @@ body {
     display: table-cell;
     vertical-align: middle;
 }
-
+dialog::backdrop{
+    filter: blur(0.5px);
+}
 /* TEXT DECOR */
 
 .italic {
