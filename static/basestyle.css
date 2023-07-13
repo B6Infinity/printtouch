@@ -37,6 +37,7 @@ body {
 dialog::backdrop{
     filter: blur(0.5px);
 }
+
 /* TEXT DECOR */
 
 .italic {
@@ -70,6 +71,15 @@ dialog::backdrop{
 .fnt-x-small {
     font-size: 10px;
 }
+
+.head1{
+    font-size: 40px;
+    margin: 10px 15px;
+}
+
+
+/* -------------------- */
+
 
 #logged_in_as {
     transition: 0.2s;

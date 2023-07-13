@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from .models import Account, Flow
 
 
 
@@ -32,8 +33,24 @@ def customers(request):
     PARAMS = {"active_page": "customers"}
     return render(request, 'customers.html', PARAMS)
 
+# APIs --------------------------------------------------------------
+
+def get_accounts(request):
+
+    RESPONSE = {}
+
+    for account in Account.objects.all():
+        RESPONSE[account.id] = {
+            'name' : account.name,
+            'location' : account.location,
+            'amt_present' : account.amt_present,
+            'category' : account.category,
+        }
 
 
+
+
+    return JsonResponse(RESPONSE)
 
 
 # Auth ---------------------------------------------------------------
@@ -75,7 +92,6 @@ def handle_login(request):
         login(request, login_user)
 
         return redirect('home')
-
 
 
 def logoutuser(request):
