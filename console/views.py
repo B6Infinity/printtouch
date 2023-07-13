@@ -45,6 +45,8 @@ def get_accounts(request):
             'location' : account.location,
             'amt_present' : account.amt_present,
             'category' : account.category,
+            'pd_upcoming_date': account.pd_upcoming_date,
+            'pd_amt': account.pd_amt
         }
 
 

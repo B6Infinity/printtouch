@@ -20,6 +20,10 @@ class Account(models.Model):
 
     category = models.CharField(max_length=25, choices=category_choices, default='cc')
 
+    pd_upcoming_date = models.DateField(null=True)
+    pd_amt = models.PositiveIntegerField(null=True)
+    
+
     def __str__(self) -> str:
         return f"{self.name} - {self.category}"
 
@@ -39,6 +43,7 @@ class Flow(models.Model):
     amount = models.PositiveBigIntegerField(default=0)
     account = models.ForeignKey(Account, on_delete=models.CASCADE)
 
+    
 
 
 # class Customer(models.Model):
