@@ -11,7 +11,8 @@ urlpatterns = [
     path('customers', view=views.customers, name='customers'),
     
     path('get_accounts', view=views.get_accounts, name='get_accounts'),
-
+    path('add_flow', view=views.add_flow, name='add_flow'),
+    
     path('login', view=views.loginpage, name='login'),
     path('handle_login', view=views.handle_login, name='handle_login'),
     path('logout', view=views.logoutuser, name='logout'),

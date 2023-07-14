@@ -54,6 +54,15 @@ def get_accounts(request):
 
     return JsonResponse(RESPONSE)
 
+def add_flow(request):
+    if request.method == 'POST':
+        print(request.POST['flow_direction_input'])
+        print(request.POST['catalyst_name'])
+        print(request.POST['purpose'])
+        print(request.POST['amount'])
+
+    return redirect('accounts')
+
 
 # Auth ---------------------------------------------------------------
 
