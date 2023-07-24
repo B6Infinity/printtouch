@@ -30,11 +30,11 @@ class Account(models.Model):
 
 class Flow(models.Model):
     depwith_choices = (
-        ('add', 'deposit'),
-        ('substract', 'withdraw'),
+        ('deposit', 'deposit'),
+        ('withdraw', 'withdraw'),
     )
 
-    flow = models.CharField(max_length=25, choices=depwith_choices, default='add')
+    flow = models.CharField(max_length=25, choices=depwith_choices, default='withdraw')
 
     is_cheque = models.BooleanField(default=False)
     catalyst = models.CharField(max_length=50)
@@ -42,6 +42,12 @@ class Flow(models.Model):
     
     amount = models.PositiveBigIntegerField(default=0)
     account = models.ForeignKey(Account, on_delete=models.CASCADE)
+
+    time_created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.amount} - {self.flow} by {self.catalyst} [{self.time_created.date().strftime('%Y-%m-%d, %H:%M %p')}]"
+    
 
     
 

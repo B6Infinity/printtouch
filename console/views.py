@@ -54,15 +54,68 @@ def get_accounts(request):
 
     return JsonResponse(RESPONSE)
 
+def get_recent_flows(request):
+    RESPONSE = {}
+
+    for flow in Flow.objects.all():
+        RESPONSE[flow.id] = {
+            'flow' : flow.flow,
+            'is_cheque' : flow.is_cheque,
+            'catalyst' : flow.catalyst,
+            'purpose' : flow.purpose,
+            'amount': flow.amount,
+            'account': flow.account.id,
+            'time_created': flow.time_created
+        }
+
+
+    return JsonResponse(RESPONSE)
+
+
 def add_flow(request):
-    if request.method == 'POST':
-        print(request.POST['flow_direction_input'])
-        print(request.POST['catalyst_name'])
-        print(request.POST['purpose'])
-        print(request.POST['amount'])
+    try:
+        if request.method == 'POST':
+            print(request.POST)
+                
+            print(request.POST['flow_direction_input'])
+            print(request.POST['catalyst_name'])
+            print(request.POST['purpose'])
+            print(request.POST['amount'])
+            print(request.POST['accounts_select'])
+            print('is_cheque' in request.POST)
+
+            acc = Account.objects.get(id=request.POST['accounts_select'])
+
+            fo =Flow.objects.create(
+                flow = request.POST['flow_direction_input'].lower(),
+                is_cheque = 'is_cheque' in request.POST,
+                catalyst = request.POST['catalyst_name'],
+                purpose = request.POST['purpose'],
+                amount = request.POST['amount'],
+                account = acc
+            )
+
+            fo.save()
+
+            if fo.flow == 'deposit':
+                # Add
+                acc.amt_present += float(fo.amount)
+                acc.save()
+            else:
+                # Substract
+                acc.amt_present -= float(fo.amount)
+                acc.save()
+
+
+            # Change the account
+
+            messages.success(request, "Added Flow successfully")
+
+    except Exception as e:
+        messages.error(request, 'Server error! Check the terminal')
+        print(e)
 
     return redirect('accounts')
-
 
 # Auth ---------------------------------------------------------------
 
